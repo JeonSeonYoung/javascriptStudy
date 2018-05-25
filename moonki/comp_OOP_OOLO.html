@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta charset="utf-8">
+        <title></title>
+        
+    </head>
+    <body>
+        
+        <script type="text/javascript">
+            var Animal = function(name) {
+                this.name = name;
+            }
+            Animal.prototype.eatting = function(food) {
+                console.log(this.name + "은/는 " + food + "를 먹고 있습니다.");
+            }
+
+            var Bird = function(name) {
+                Animal.call(this, name);
+            }
+            Bird.prototype = Object.create(Animal.prototype);
+            Bird.prototype.flying = function() {
+                console.log(this.name + "은/는 날고있습니다.")
+            };
+
+            var bird = new Bird("참새");
+
+            bird.eatting("개미");
+            bird.flying();
+
+            var Animal1 = {
+                init: function(name) {
+                    this.name = name;
+                },
+                eatting: function(food) {
+                    console.log(this.name + "은/는 " + food + "를 먹고 있습니다.");
+                }
+            };
+
+            var Bird1 = Object.create(Animal1);
+            Bird1.flying = function() {
+                console.log(this.name + "은/는 날고있습니다.")
+            };
+
+            var bird1 = Object.create(Bird1);
+            bird1.init("파랑새");
+
+            bird1.eatting("열매");
+            bird1.flying();
+        </script>
+    </body>
+</html>
