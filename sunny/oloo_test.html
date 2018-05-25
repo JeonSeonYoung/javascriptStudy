@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        var Animal = {
+            init: function (who) {
+                this.me = who;
+            },
+            bark: function (lData) {
+                return this.me + "가 " + lData+ " 짖다.";
+            },
+            eat: function (lData) {
+                return this.me + "가 " + lData +"를 먹다.";
+            },
+            hug: function () {
+                return "안아주었다.";
+            }
+        }
+
+
+        var Dog = Object.create(Animal);
+        Dog.myBark = function () {
+            return this.bark('멍멍');
+        };
+        Dog.myEat = function () {
+            return this.eat('뼈다귀');
+        };
+
+        var Cat = Object.create(Animal);
+        Cat.myBark = function () {
+            return this.bark('야옹');
+        };
+        Cat.myEat = function () {
+            return this.eat('생선');
+        };
+
+        var Tiger = Object.create(Animal);
+        Tiger.myBark = function () {
+            return this.bark('어흥');
+        };
+        Tiger.myEat = function () {
+            return this.eat('생고기');
+        };
+
+
+        Dog.init('개');
+        console.log(Dog.myBark());
+        console.log(Dog.myEat());
+        console.log(Dog.hug());
+        console.log('-------------------------');
+        Cat.init('고양이');
+        console.log(Cat.myBark());
+        console.log(Cat.myEat());
+        console.log(Cat.hug());
+        console.log('-------------------------');
+        Tiger.init('호랑이');
+        console.log(Tiger.myBark());
+        console.log(Tiger.myEat());
+        console.log(Tiger.hug());
+       
+    </script>
+</body>
+</html>
