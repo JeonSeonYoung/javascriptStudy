@@ -1,18 +1,14 @@
 프로미스 기본 사용
 
 function getData(callback) {
-  // new Promise() 추가
   return new Promise(function (resolve, reject) {
-    $.get('url 주소/products/1', function (response) {
-      // 데이터를 받으면 resolve() 호출
+    $.get('localhost/products/1', function (response) {
       resolve(response);
     });
   });
 }
 
-// getData()의 실행이 끝나면 호출되는 then()
 getData().then(function (tableData) {
-  // resolve()의 결과 값이 여기로 전달됨
 console.log(tableData); // $.get()의 reponse 값이 tableData에 전달됨
 });
 
@@ -57,10 +53,8 @@ new Promise(function(resolve, reject){
 
 var promise1 = new Promise(function (resolve, reject) {
 
-	// 비동기를 표현하기 위해 setTimeout 함수를 사용 
 	window.setTimeout(function () {
 
-		// 해결됨 
 		console.log("첫번째 Promise 완료");
 		resolve("11111");
 
@@ -69,10 +63,8 @@ var promise1 = new Promise(function (resolve, reject) {
 
 var promise2 = new Promise(function (resolve, reject) {
 
-	// 비동기를 표현하기 위해 setTimeout 함수를 사용 
 	window.setTimeout(function () {
 
-		// 해결됨 
 		console.log("두번째 Promise 완료");
 		resolve("222222");
 
@@ -174,7 +166,8 @@ Promise.race([p1, p2, p3, p4, p5]).then(function(value) {
 결과 : one
 
 
-ALL은 모든 프로미스가 완료될 때까지 pendding 상태로 기다리기 때문에 중간에 REJECT를 캐치하여 오류를 출력한다. 반면 RACE의 경우 가장 먼저 응답을 받은 프로미스를 출력 후 다음 프로세스로 넘어가기 때문에 에러를 캐치하지 못함.
+ALL은 모든 프로미스가 완료될 때까지 pendding 상태로 기다리기 때문에 중간에 REJECT를 캐치하여 오류를 출력한다. 
+반면 RACE의 경우 가장 먼저 응답을 받은 프로미스를 출력 후 다음 프로세스로 넘어가기 때문에 에러를 캐치하지 못함.
 
 
 
@@ -184,6 +177,9 @@ ALL은 모든 프로미스가 완료될 때까지 pendding 상태로 기다리�
 
 
 오류처리
+
+
+오류처리 방법 두가지 
 
 function getData() {
   return new Promise(function (resolve, reject) {
@@ -202,51 +198,10 @@ getData().then(function () {
 getData().then().catch(function (err) {
   console.log(err);
 });
---------------------------------------------------------------------------------------
 
 
 
-
-// then()의 두 번째 인자로는 감지하지 못하는 오류
-function getData() {
-  return new Promise(function (resolve, reject) {
-    resolve('hi');
-  });
-}
-
-getData().then(function (result) {
-  console.log(result);
-  throw new Error("Error in then()"); // Uncaught (in promise) Error: Error in then()
-}, function (err) {
-  console.log('then error : ', err);
-});
-JsCopy
-getData() 함수의 프로미스에서 resolve() 메서드를 호출하여 정상적으로 로직을 처리했지만, then()의 첫 번째 콜백 함수 내부에서 오류가 나는 경우 오류를 제대로 잡아내지 못합니다. 따라서 코드를 실행하면 아래와 같은 오류가 납니다.
-
-
-'에러를 잡지 못했습니다(Uncaught Error)' 로그
-하지만 똑같은 오류를 catch()로 처리하면 다른 결과가 나옵니다.
-
-// catch()로 오류를 감지하는 코드
-function getData() {
-  return new Promise(function (resolve, reject) {
-    resolve('hi');
-  });
-}
-
-getData().then(function (result) {
-  console.log(result); // hi
-  throw new Error("Error in then()");
-}).catch(function (err) {
-  console.log('then error : ', err); // then error :  Error: Error in then()
-});
-JsCopy
-위 코드의 처리 결과는 다음과 같습니다.
-
-
--------------------------------------------------------------------------------------------------------------
-
-
+오류 
 
 
 var p1 = new Promise(function(resolve, reject) {
@@ -268,8 +223,6 @@ p2.catch(function(e) {
   console.log(e); // 이는 전혀 호출되지 않음
 });
 
-
-throw로 처리한 예외처리는 비동기처리에 정상적으로 에러를 잡아내지 못한다.
 
 
 
