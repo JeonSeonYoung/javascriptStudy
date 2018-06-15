@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        // Promise.race
+        /**
+            - promise 객체를 배열로 전달.
+            - Promise.all()과 달리 모두 Fulfilled 될 때까지 기다리는게 아닌 전달한 객체 중
+            하나만 완료 되어도 다음 동작으로 이동.
+            - 최초로 Fulfilled 된 객체 이외의 객체도 동작은 함.
+        **/
+
+        var winnerPromise = new Promise((resolve) => {
+            setTimeout(() => {
+                console.log('this is winner');
+                resolve('success this is winner');
+            }, 4);
+        });
+
+        var loserPromise = new Promise((resolve) => {
+            setTimeout(() => {
+                console.log('this is loser');
+                resolve('success this is loser');
+            }, 1000);
+        });
+
+        Promise.race([winnerPromise, loserPromise]).then((value) => {
+            console.log(value);
+        });
+    </script>
+</body>
+</html>

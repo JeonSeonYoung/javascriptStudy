@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        // 기본 promise
+        function asyncFunction() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve('success');
+                }, 16);
+            })
+        }
+
+        asyncFunction().then((value) => {
+            console.log(value);
+        }).catch((error) => {
+            console.log(error);
+        });
+
+
+        // Promise.resolve
+        /**
+            Promise.resolve()와 new Promise() 같은 의미
+            promise 객체를 초기화 할 때나 테스트 코드를 작성할 때 활용.
+            thenable 객체를 promise 객체로 변환 가능.
+        **/
+        Promise.resolve(42).then((value) => {
+            console.log(value);
+        });
+
+
+        // Promise.reject
+        Promise.reject(new Error('error')).catch((error) => {
+            console.error(error.message);
+        });
+
+
+        // Promise.prototype.then
+        /**
+            콜백에서 반환하는 값을 기준으로 새로운 Promise 객체를 생성하여 전달
+        **/
+        function doubleUp(value) {
+            return value * 2;
+        };
+        function increment(value) {
+            return value + 1;
+        };
+        function output(value) {
+            console.log(value);
+        };
+        var promise = Promise.resolve(1);   // -- 초기값 설정, promise 객체로 반환
+        promise.then(increment)
+                .then(doubleUp)
+                .then(output);
+        
+
+        // Promise.prototype.catch
+        /**
+            polyfill - promise["catch"]((error)=>{});
+            catch 대신 then 사용 가능
+        **/
+        var promise = Promise.reject(new Error("error message"));
+        promise.catch((error) => {
+            console.error(error.message);
+        });
+    </script>
+</body>
+</html>
