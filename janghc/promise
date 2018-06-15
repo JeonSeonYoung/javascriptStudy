@@ -226,6 +226,21 @@ p2.catch(function(e) {
 
 
 
+finally 
+
+
+function getData() {
+  return new Promise(function (resolve, reject) {
+    reject('failed');
+  });
+}
+
+
+// 2. catch()로 에러를 처리하는 코드
+getData().then().catch(function (err) {
+  console.log(err);
+}).finally(function(){console.log("마지막 필수로 체크")});
+
 
 
 
